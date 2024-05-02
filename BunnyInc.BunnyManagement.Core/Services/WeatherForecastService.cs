@@ -15,7 +15,7 @@ namespace BunnyInc.BunnyManagement.Core.Services
 
         private static readonly string[] Summaries =
         [
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching", "Storm", "Rain"
         ];
 
         public IEnumerable<WeatherForecast> GetWeatherForecasts(int days, string? location)

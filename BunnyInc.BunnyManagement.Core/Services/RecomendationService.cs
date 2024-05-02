@@ -15,7 +15,28 @@ namespace BunnyInc.BunnyManagement.Core.Services
     {
         public Recomendation GetRecomendation(WeatherForecast forecast)
         {
-            throw new NotImplementedException();
+
+            if (forecast is { TemperatureC: < 10 })
+            {
+                return new Recomendation(RecomendationType.SitHome, "Too cold");
+            }
+
+            if (forecast.Summary == "Storm")
+            {
+                return new Recomendation(RecomendationType.GoToShelter, "Be safe");
+            }
+
+            if (forecast.Summary == "Rain")
+            {
+                return new Recomendation(RecomendationType.TakeUmbrella, "Water folling from the sky");
+            }
+
+            if (forecast.Summary == "Hot")
+            {
+                return new Recomendation(RecomendationType.TakeSunglasses, "Sunny");
+            }
+
+            return new Recomendation(RecomendationType.Default, "Nothing special");
         }
     }
 }

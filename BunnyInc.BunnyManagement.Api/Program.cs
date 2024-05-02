@@ -1,5 +1,6 @@
 
 using BunnyInc.BunnyManagement.Core.Services;
+using System.Text.Json.Serialization;
 
 namespace BunnyInc.BunnyManagement.Api
 {
@@ -11,7 +12,12 @@ namespace BunnyInc.BunnyManagement.Api
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(opts =>
+            {
+                var enumConverter = new JsonStringEnumConverter();
+                opts.JsonSerializerOptions.Converters.Add(enumConverter);
+            });
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

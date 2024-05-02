@@ -14,6 +14,7 @@ namespace BunnyInc.BunnyManagement.Core.Models
 
     public enum RecomendationType
     {
+        Default,
         TakeUmbrella,
         TakeSunglasses,
         SitHome,

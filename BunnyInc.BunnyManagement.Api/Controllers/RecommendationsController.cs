@@ -23,6 +23,11 @@ namespace BunnyInc.BunnyManagement.Api.Controllers
         public IActionResult Index()
         {
             var forecast = _weatherForecastService.GetWeatherForecasts();
+            if (forecast is null)
+            {
+                throw new Exception("Cannot get weather forecast for today");
+            }
+
             var recomendation = _recomendationService.GetRecomendation(forecast);
             return Ok(recomendation);
         }
