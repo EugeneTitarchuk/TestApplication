@@ -1,4 +1,4 @@
-namespace BunnyInc.BunnyManagement.Api
+namespace BunnyInc.BunnyManagement.Core.Models
 {
     public class WeatherForecast
     {

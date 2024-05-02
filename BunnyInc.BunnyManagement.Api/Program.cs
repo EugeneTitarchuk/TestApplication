@@ -1,4 +1,6 @@
 
+using BunnyInc.BunnyManagement.Core.Services;
+
 namespace BunnyInc.BunnyManagement.Api
 {
     public class Program
@@ -13,6 +15,10 @@ namespace BunnyInc.BunnyManagement.Api
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddTransient<IRecomendationService, RecomendationService>();
+            builder.Services.AddTransient<IWeatherForecastService, WeatherForecastService>();
+
 
             var app = builder.Build();
 

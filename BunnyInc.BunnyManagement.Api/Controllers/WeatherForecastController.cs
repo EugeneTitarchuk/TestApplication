@@ -1,33 +1,40 @@
+using BunnyInc.BunnyManagement.Core.Models;
+using BunnyInc.BunnyManagement.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BunnyInc.BunnyManagement.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/forecast")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IWeatherForecastService _weatherForecastService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IWeatherForecastService weatherForecastService)
         {
             _logger = logger;
+            _weatherForecastService = weatherForecastService;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet]
+        public WeatherForecast? Get([FromQuery] string location)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            if (location == null)
             {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+                _logger.LogDebug("Location not set - use dafault");
+                return _weatherForecastService.GetWeatherForecasts();
+            }
+
+            var forecast = _weatherForecastService.GetWeatherForecasts(location);
+
+            return forecast;
+        }
+
+        [HttpGet("{days:int}")]
+        public IEnumerable<WeatherForecast> GetPeriod(int days, [FromQuery] string? location)
+        {
+            return _weatherForecastService.GetWeatherForecasts(days, location);
         }
     }
 }
