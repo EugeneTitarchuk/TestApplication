@@ -1,0 +1,6 @@
+@BunnyInc.BunnyManagement.Api_HostAddress = http://localhost:5177
+
+GET {{BunnyInc.BunnyManagement.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
